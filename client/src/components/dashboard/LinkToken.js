@@ -18,8 +18,8 @@ const LinkToken = ({ token, accessToken, getAccessToken }) => {
 	return (
 		<>
 			<PlaidLink
-				className="btn btn-large waves-effect waves-light hoverable blue accent-3 main-btn"
-				style={{ padding: "0px", fontSize: "16px", cursor: "pointer" }}
+				className="btn black f-red center-btn btn-large waves-effect waves-light hoverable accent-3 main-btn"
+				style={{ marginTop: "200px", padding: "0px", fontSize: "16px", cursor: "pointer" }}
 				token={token}
 				onExit={onExit}
 				onSuccess={onSuccess}

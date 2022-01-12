@@ -29,8 +29,10 @@ export const loginUser = (userData) => (dispatch) => {
 		.post("/api/users/login", userData)
 		.then((res) => {
 			// Save to localStorage
-
 			const { token } = res.data;
+
+			if (!token.contains("Bearer"))
+				token = `Bearer ${token}`
 
 			// Set token to Auth header
 			setAuthToken(token);

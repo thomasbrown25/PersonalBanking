@@ -5,6 +5,7 @@ import {
 	ACCOUNTS_LOADING,
 	GET_TRANSACTIONS,
 	TRANSACTIONS_LOADING,
+	GET_ACCOUNTS_ERROR
 } from "../actions/types";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
 	transactions: [],
 	accountsLoaded: false,
 	transactionsLoaded: false,
+	error: null
 };
 
 export default function(state = initialState, action) {
@@ -39,6 +41,12 @@ export default function(state = initialState, action) {
 				...state,
 				accounts: action.payload,
 				accountsLoaded: true,
+			};
+		case GET_ACCOUNTS_ERROR:
+			return {
+				...state,
+				error: action.payload,
+				accountsLoaded: true
 			};
 		case TRANSACTIONS_LOADING:
 			return {

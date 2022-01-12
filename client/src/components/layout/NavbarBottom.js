@@ -22,7 +22,7 @@ class NavbarBottom extends Component {
 
 	render() {
 		return (
-			<Nav className="navbar fixed-top nav-secondary is-dark is-light-text">
+			<Nav className="navbar fixed-top nav-secondary black is-light-text" style={{ padding: "0px 0px 0px 15px" }}>
 				<Container className="text-medium">Dashboard</Container>
 				<Container className="navbar-nav ml-auto">
 					{/* <Dropdown

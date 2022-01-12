@@ -3,6 +3,7 @@ import {
 	ADD_ACCOUNT,
 	DELETE_ACCOUNT,
 	GET_ACCOUNTS,
+	GET_ACCOUNTS_ERROR,
 	ACCOUNTS_LOADING,
 	GET_TRANSACTIONS,
 	TRANSACTIONS_LOADING
@@ -49,10 +50,10 @@ export const deleteAccount = (plaidData) => (dispatch) => {
 };
 
 // Get all accounts for specific user
-export const getAccounts = () => (dispatch) => {
+export const getAccounts = (accessToken) => (dispatch) => {
 	dispatch(setAccountsLoading());
 	axios
-		.get("/api/plaid/accounts")
+		.post("/api/plaid/accounts", { data: { accessToken }})
 		.then((res) =>
 			dispatch({
 				type: GET_ACCOUNTS,
@@ -61,11 +62,13 @@ export const getAccounts = () => (dispatch) => {
 		)
 		.catch((err) =>
 			dispatch({
-				type: GET_ACCOUNTS,
-				payload: null
+				type: GET_ACCOUNTS_ERROR,
+				payload: err
 			})
 		);
 };
+
+
 // Accounts Loaded
 export const setAccountsLoading = () => {
 	return {

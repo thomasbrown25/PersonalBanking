@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 //CSS
 import "../../table.css";
+import "../../assets/css/dashboard.css";
 
 //Actions
 import { logoutUser } from "../../actions/authActions";
@@ -19,7 +20,7 @@ import { Container } from "../layout/styled-components";
 import { Row } from "../layout/Row";
 import { Card } from "../layout/Card";
 import ByMonth from "../transactions/ByMonth";
-import { Table } from "./Table";
+import { BalanceTable } from "../accounts/BalanceTable";
 
 //Moment
 import moment from "moment";
@@ -48,7 +49,8 @@ const Dashboard = ({
 	auth: { user },
 	plaid: { accounts, account, transactions },
 	link: { linkToken, accessToken, accessTokenLoaded },
-	expenses: { expense }
+	expenses: { expense },
+	accountData
 }) => {
 	useEffect(() => {
 		createToken();
@@ -56,6 +58,9 @@ const Dashboard = ({
 	useEffect(() => {
 		buildExpensesChart();
 	}, [buildExpensesChart]);
+	useEffect(() => {
+		buildAccountData();
+	}, [buildAccountData]);
 
 	//set to help development mode and skip linking bank account
 	const skipLink = false;
@@ -81,6 +86,23 @@ const Dashboard = ({
 		}
 	};
 
+	const buildAccountData = () => {
+		const token = { token: accessToken }
+		getAccounts(accessToken);
+
+		let data = [];
+		let key = 1
+		accounts.forEach(account => {
+			data.push({key: key,
+				checking: account.name,
+				balance: account.balances.current})
+				key++;
+		});
+		accountData = data
+	}
+
+
+
 	return (
 		<Fragment>
 			{!accessToken && !skipLink ? (
@@ -91,7 +113,7 @@ const Dashboard = ({
 				<Container className="container-fluid pr-5 pl-5 pt-5 pb-5">
 					{/* row 1 - revenue */}
 					<Row>
-						<Table />
+						<BalanceTable data={accountData} />
 					</Row>
 					{/* row 2 - conversion */}
 					<Row>

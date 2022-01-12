@@ -35,7 +35,7 @@ if (localStorage.jwtToken) {
 		// Redirect to login
 		window.location.href = "./login";
 	}
-}
+ }
 
 const App = () => {
 	return (

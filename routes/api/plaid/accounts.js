@@ -4,6 +4,8 @@ const router = express.Router();
 const passport = require("passport");
 const moment = require("moment");
 const mongoose = require("mongoose");
+const isEmpty = require("is-empty");
+const { check, validationResult } = require("express-validator");
 
 // Load Account and User models
 const Account = require("../../../models/Account");
@@ -75,6 +77,7 @@ router.post(
 // @access Private
 router.delete(
 	"/accounts/:id",
+	
 	passport.authenticate("jwt", { session: false }),
 	(req, res) => {
 		Account.findById(req.params.id).then((account) => {
@@ -84,14 +87,17 @@ router.delete(
 	}
 );
 
-// @route GET api/plaid/accounts
+// @route POST api/plaid/accounts
 // @desc Get all accounts linked with plaid for a specific user
 // @access Private
-router.get(
-	"/accounts",
+router.post(
+	"/",
+	check("accessToken", "accessToken is required").not().isEmpty(),
 	passport.authenticate("jwt", { session: false }),
 	async (req, res) => {
-		const { accessToken } = req.body;
+		const { accessToken } = req.body.data;
+
+		console.log(`Getting accounts, access token: ${accessToken}`)
 
 		const response = await plaidClient
 			.getAccounts(accessToken)
@@ -112,6 +118,8 @@ router.get(
 	passport.authenticate("jwt", { session: false }),
 	async (req, res) => {
 		const { accessToken } = req.body;
+
+		console.log(`Getting accounts, access token: ${accessToken}`)
 
 		const response = await plaidClient
 			.getBalance(accessToken)
