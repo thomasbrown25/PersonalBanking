@@ -8,6 +8,7 @@ const tokens = require("./routes/api/token");
 const accounts = require("./routes/api/plaid/accounts");
 const transactions = require("./routes/api/plaid/transactions");
 const expenses = require("./routes/api/expenses");
+const path = require('path');
 
 const app = express();
 app.use(express.static('./client/build'));
