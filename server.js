@@ -10,6 +10,7 @@ const transactions = require("./routes/api/plaid/transactions");
 const expenses = require("./routes/api/expenses");
 
 const app = express();
+app.use(express.static('./client/build'));
 
 const client = new plaid.Client({
 	clientID: "6003014b1d0ca6000ffa17b8",
@@ -49,6 +50,11 @@ app.use("/api/token", tokens);
 app.use("/api/plaid/accounts", accounts);
 app.use("/api/plaid/accounts/transactions", transactions);
 app.use("/api/expenses", expenses);
+
+app.get("*", (req, res) => {
+	res.sendFile(path.resolve(__dirname, "client", "build",     
+	"index.html"));
+ });
 
 const port = process.env.PORT || 5000;
 

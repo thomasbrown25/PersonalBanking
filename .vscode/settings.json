@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/3049c12e-c70b-4eb5-9961-5061a0e8d8f4/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/personal-banking-app",
+    "appService.deploySubpath": "."
+}
