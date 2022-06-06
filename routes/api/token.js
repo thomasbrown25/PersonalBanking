@@ -5,6 +5,9 @@ const passport = require("passport");
 const moment = require("moment");
 const mongoose = require("mongoose");
 
+//Models
+const User = require("../../models/User");
+
 // const PLAID_CLIENT_ID = "6003014b1d0ca6000ffa17b8";
 // const PLAID_SECRET = "d5d392ab1d41d91e2dfc5aa537f058";
 const plaidClient = new plaid.Client({
@@ -68,6 +71,9 @@ router.post("/get_access_token", async (req, res) => {
 				return "no public token";
 			}
 		});
+
+		//save access token to user
+
 	const itemId = response.item_id;
 	return res.send({ access_token: response.access_token });
 });

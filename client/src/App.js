@@ -7,12 +7,18 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { Provider } from "react-redux";
 import store from "./store";
 
+// import routes from "./routes";
+// import withTracker from "./withTracker";
+
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
+
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
 
 import "./App.css";
 import NavbarBottom from "./components/layout/NavbarBottom";
@@ -37,7 +43,7 @@ if (localStorage.jwtToken) {
 	}
  }
 
-const App = () => {
+ const App = () => {
 	return (
 		<Provider store={store}>
 			<Router>
