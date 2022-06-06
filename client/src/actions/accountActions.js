@@ -51,6 +51,9 @@ export const deleteAccount = (plaidData) => (dispatch) => {
 
 // Get all accounts for specific user
 export const getAccounts = (accessToken) => (dispatch) => {
+	if (!accessToken)
+	return null;
+
 	dispatch(setAccountsLoading());
 	axios
 		.post("/api/plaid/accounts", { data: { accessToken }})

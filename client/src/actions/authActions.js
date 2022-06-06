@@ -1,6 +1,7 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
+import store from "../store";
 
 import {
 	GET_ERRORS,
@@ -29,11 +30,11 @@ export const loginUser = (userData) => (dispatch) => {
 		.post("/api/users/login", userData)
 		.then((res) => {
 			// Save to localStorage
-			const { token } = res.data;
-
-			if (!token.contains("Bearer"))
+			let { token } = res.data;
+				
+			if (!token.includes("Bearer")) 
 				token = `Bearer ${token}`
-
+				
 			// Set token to Auth header
 			setAuthToken(token);
 			// Decode token to get user data
@@ -69,7 +70,7 @@ export const logoutUser = () => (dispatch) => {
 	// Remove auth header for future requests
 	setAuthToken(false);
 	// Set current user to empty object {} which will set isAuthenticated to false
-	dispatch(setCurrentUser());
-	dispatch({ type: LOGOUT });
-	dispatch({ type: CLEAR_TOKEN });
+	store.dispatch(setCurrentUser());
+	store.dispatch({ type: LOGOUT });
+	store.dispatch({ type: CLEAR_TOKEN });
 };

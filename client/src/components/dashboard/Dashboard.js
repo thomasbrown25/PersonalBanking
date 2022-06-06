@@ -88,6 +88,10 @@ const Dashboard = ({
 
 	const buildAccountData = () => {
 		const token = { token: accessToken }
+
+		if (!token)
+		return;
+		
 		getAccounts(accessToken);
 
 		let data = [];
